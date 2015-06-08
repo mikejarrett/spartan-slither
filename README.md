@@ -4,5 +4,5 @@
 
 ## Image Credits
 
-Sparty Helmet and block S images obtained from http://cabs.msu.edu/toolkit/logos-marks.html
-Wolvie image obtained from https://twitter.com/GoBlue_UM
+* Sparty Helmet and block S images obtained from http://cabs.msu.edu/toolkit/logos-marks.html
+* Wolvie image obtained from https://twitter.com/GoBlue_UM
