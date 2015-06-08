@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from collections import namedtuple
 
 Resolution = namedtuple('Resolution', ['width', 'height'])
