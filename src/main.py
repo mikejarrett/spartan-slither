@@ -6,15 +6,13 @@ import time
 import pygame
 
 import color
+import constants
 import utils
-
-RESOLUTION = (800, 600)
-FPS = 30
 
 
 class SpartanSlither(object):
 
-    def __init__(self, resolution=RESOLUTION, fps=FPS):
+    def __init__(self, resolution=constants.RESOLUTION, fps=constants.FPS):
         pygame.init()
 
         if not isinstance(resolution, (tuple, list)):
