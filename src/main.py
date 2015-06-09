@@ -6,8 +6,7 @@ import time
 
 import pygame
 
-from gameover import GameOver
-from intro import Intro
+from scenes import GameOver, Intro
 import color
 import constants
 import utils
