@@ -6,8 +6,8 @@ import time
 
 import pygame
 
-from intro import Intro
 from gameover import GameOver
+from intro import Intro
 import color
 import constants
 import utils
@@ -36,12 +36,6 @@ class SpartanSlither(object):
         self.block_s = pygame.image.load("resources/ms_block_s.png")
         self.wolvie_image = pygame.image.load("resources/wolvie.png")
         self.block_w = pygame.image.load("resources/block_w.png")
-
-        self.font_mapping = {
-            'small': pygame.font.SysFont(None, 25),
-            'medium': pygame.font.SysFont(None, 50),
-            'large':  pygame.font.SysFont(None, 72)
-        }
 
     def initialize_start(self):
         self.level = 10
@@ -187,31 +181,13 @@ class SpartanSlither(object):
                 self.wolvie.y = 0
                 self.sparty_length += 5
 
-    def display_message_to_screen(
-        self, message, color, y_displacement=0, font_size=constants.SMALL
-    ):
-        """ Display a message to screen
-
-        :param message: String to be displayed to the game surface
-        :param color: Tuple representing the color of the text
-        """
-        font = self.font_mapping[font_size]
-
-        text_surface = font.render(message, True, color)
-        text_rect = text_surface.get_rect()
-        x_cordinates = self.resolution.width / 2
-        y_cordinates = self.resolution.height / 2 + y_displacement
-        text_rect.center = (x_cordinates, y_cordinates)
-        self.display.blit(text_surface, text_rect)
-
     def is_game_over(self):
         if self.game_over:
             exit_game = GameOver(
                 display=self.display, pygame=pygame,
-                display_func=self.display_message_to_screen,
                 clock=self.clock,
-                render_block_func=self._render_block_letter_image,
-                image=self.block_w
+                image=self.block_w,
+                resolution=self.resolution
             ).run()
             if exit_game:
                 self.game_exit = True
@@ -222,15 +198,19 @@ class SpartanSlither(object):
         """ Handle exiting the game, show a message, close it all down nicely.
         """
         self.display.fill(color.SPARTAN)
-        self.display_message_to_screen(
-            "Go Green! Go White!", self.background_color, y_displacement=-100,
+        utils.display_message_to_screen(
+            self.display, self.resolution, "Go Green! Go White!",
+            self.background_color, pygame, y_displacement=-100,
             font_size=constants.MEDIUM
         )
 
-        self._render_block_letter_image(self.block_s)
+        utils.render_block_letter_image(
+            self.display, self.block_s, self.resolution
+        )
 
-        self.display_message_to_screen(
-            "Thanks for playing!", self.background_color, y_displacement=100
+        utils.display_message_to_screen(
+            self.display, self.resolution, "Thanks for playing!",
+            self.background_color, pygame, y_displacement=100
         )
         pygame.display.update()
         time.sleep(2)
@@ -238,18 +218,10 @@ class SpartanSlither(object):
         pygame.quit()
         quit()
 
-    def _render_block_letter_image(self, image):
-        block_letter_rect = image.get_rect()
-        x_cordinates = self.resolution.width / 2
-        y_cordinates = self.resolution.height / 2
-        block_letter_rect.center = (x_cordinates, y_cordinates)
-        self.display.blit(image, block_letter_rect)
-
     def intro_loop(self):
         start = Intro(
-            display=self.display, pygame=pygame,
-            display_func=self.display_message_to_screen,
-            clock=self.clock
+            display=self.display, pygame=pygame, clock=self.clock,
+            resolution=self.resolution
         ).run()
         if start:
             self.initialize_start()

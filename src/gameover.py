@@ -4,33 +4,35 @@ import pygame
 
 import color
 import constants
+import utils
 
 
 class GameOver(object):
 
-    def __init__(
-        self, display, pygame, display_func, clock, render_block_func, image
-    ):
+    def __init__(self, display, pygame, clock, image, resolution):
         self.display = display
         self._pygame = pygame
-        self.display_message_to_screen = display_func
-        self._render_block_letter_image = render_block_func
         self.block_w = image
         self.clock = clock
+        self._resolution = resolution
         self.game_exit = False
         self.game_over = True
 
     def run(self):
         while self.game_over:
             self.display.fill(color.BLUE)
-            self.display_message_to_screen(
-                "The Wolvies Beat You!", color.MAIZE, y_displacement=-100,
+            utils.display_message_to_screen(
+                self.display, self._resolution, "The Wolvies Beat You!",
+                color.MAIZE, self._pygame, y_displacement=-100,
                 font_size=constants.MEDIUM
             )
-            self._render_block_letter_image(self.block_w)
-            self.display_message_to_screen(
+            utils.render_block_letter_image(
+                self.display, self.block_w, self._resolution
+            )
+            utils.display_message_to_screen(
+                self.display, self._resolution,
                 "Press C to play again or Q to quit.", color.MAIZE,
-                y_displacement=100
+                self._pygame, y_displacement=100
             )
             pygame.display.update()
             self.handle_game_over_events()

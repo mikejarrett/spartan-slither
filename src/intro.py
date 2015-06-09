@@ -4,43 +4,50 @@ import pygame
 
 import color
 import constants
+import utils
 
 
 class Intro(object):
 
-    def __init__(self, display, pygame, display_func, clock):
+    def __init__(self, display, pygame, clock, resolution):
         self.display = display
         self._pygame = pygame
-        self.display_message_to_screen = display_func
         self.clock = clock
+        self.resolution = resolution
         self.start_game = False
         self.intro = True
 
     def run(self):
         while self.intro:
             self.display.fill(color.SPARTAN)
-            self.display_message_to_screen(
-                "Welcome to Spartan Slither", color.WHITE, y_displacement=-100,
+            utils.display_message_to_screen(
+                self.display, self.resolution,
+                "Welcome to Spartan Slither", color.WHITE, self._pygame,
+                y_displacement=-100,
                 font_size=constants.LARGE
             )
-            self.display_message_to_screen(
-                "Objective: Destroy the Wolvies.", color.WHITE,
+            utils.display_message_to_screen(
+                self.display, self.resolution,
+                "Objective: Destroy the Wolvies.", color.WHITE, self._pygame,
                 y_displacement=-50
             )
-            self.display_message_to_screen(
+            utils.display_message_to_screen(
+                self.display, self.resolution,
                 "The more wolvies you destroy, the bigger you become.",
-                color.WHITE, y_displacement=-20
+                color.WHITE, self._pygame, y_displacement=-20
             )
-            self.display_message_to_screen(
+            utils.display_message_to_screen(
+                self.display, self.resolution,
                 "Don't get too close to the walls though or the wolvies will "
-                "win.", color.WHITE, y_displacement=10
+                "win.", color.WHITE, self._pygame, y_displacement=10
             )
-            self.display_message_to_screen(
-                "Press S to start or Q to quit.", color.WHITE,
+            utils.display_message_to_screen(
+                self.display, self.resolution,
+                "Press S to start or Q to quit.", color.WHITE, self._pygame,
                 y_displacement=50, font_size=constants.MEDIUM
             )
             self._pygame.display.update()
-            self.clock.tick(1)
+            self.clock.tick(15)
             self.handle_intro_events()
         return self.start_game
 
