@@ -21,15 +21,15 @@ class GameOver(object):
     def run(self):
         while self.game_over:
             self.display.fill(color.BLUE)
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self._resolution, "The Wolvies Beat You!",
                 color.MAIZE, self._pygame, y_displacement=-100,
                 font_size=constants.MEDIUM
             )
-            utils.render_block_letter_image(
+            utils.Renderer.render_block_letter_image(
                 self.display, self.block_w, self._resolution
             )
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self._resolution,
                 "Press C to play again or Q to quit.", color.MAIZE,
                 self._pygame, y_displacement=100

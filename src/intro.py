@@ -20,28 +20,28 @@ class Intro(object):
     def run(self):
         while self.intro:
             self.display.fill(color.SPARTAN)
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self.resolution,
                 "Welcome to Spartan Slither", color.WHITE, self._pygame,
                 y_displacement=-100,
                 font_size=constants.LARGE
             )
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self.resolution,
                 "Objective: Destroy the Wolvies.", color.WHITE, self._pygame,
                 y_displacement=-50
             )
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self.resolution,
                 "The more wolvies you destroy, the bigger you become.",
                 color.WHITE, self._pygame, y_displacement=-20
             )
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self.resolution,
                 "Don't get too close to the walls though or the wolvies will "
                 "win.", color.WHITE, self._pygame, y_displacement=10
             )
-            utils.display_message_to_screen(
+            utils.Renderer.display_message_to_screen(
                 self.display, self.resolution,
                 "Press S to start or Q to quit.", color.WHITE, self._pygame,
                 y_displacement=50, font_size=constants.MEDIUM

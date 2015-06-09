@@ -198,17 +198,17 @@ class SpartanSlither(object):
         """ Handle exiting the game, show a message, close it all down nicely.
         """
         self.display.fill(color.SPARTAN)
-        utils.display_message_to_screen(
+        utils.Renderer.display_message_to_screen(
             self.display, self.resolution, "Go Green! Go White!",
             self.background_color, pygame, y_displacement=-100,
             font_size=constants.MEDIUM
         )
 
-        utils.render_block_letter_image(
+        utils.Renderer.render_block_letter_image(
             self.display, self.block_s, self.resolution
         )
 
-        utils.display_message_to_screen(
+        utils.Renderer.display_message_to_screen(
             self.display, self.resolution, "Thanks for playing!",
             self.background_color, pygame, y_displacement=100
         )
