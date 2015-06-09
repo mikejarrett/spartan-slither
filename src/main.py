@@ -48,6 +48,8 @@ class SpartanSlither(object):
         self.lead_x_change = 10
         self.lead_y_change = 0
 
+        self.score_height = 60
+
         self.sparty_size = 20
         self.sparty_head = (self.lead_x, self.lead_y)
         self.sparty_list = [self.sparty_head]
@@ -135,7 +137,7 @@ class SpartanSlither(object):
             y_max = self.resolution.height - self.wolvie_size
             self.wolvie = utils.Wolvie(
                 x=round(random.randrange(0, x_max)),
-                y=round(random.randrange(0, y_max)),
+                y=round(random.randrange(self.score_height, y_max)),
                 x_size=self.wolvie_size,
                 y_size=self.wolvie_size
             )
@@ -155,7 +157,7 @@ class SpartanSlither(object):
             self.lead_x + self.sparty_size > self.resolution.width or
             self.lead_x < 0 or
             self.lead_y + self.sparty_size > self.resolution.height or
-            self.lead_y < 0
+            self.lead_y < self.score_height
         ):
             self.game_over = True
 
