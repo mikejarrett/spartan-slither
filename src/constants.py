@@ -6,4 +6,3 @@ RESOLUTION = (800, 600)
 SMALL = 'small'
 MEDIUM = 'medium'
 LARGE = 'large'
-

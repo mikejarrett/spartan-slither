@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import colors
 import utils
-
+import color
 
 class ScoreBoard(object):
 
@@ -10,5 +9,10 @@ class ScoreBoard(object):
         self.display = display
         self.pygame = pygame
         self.resolution = utils.Resolution(width=width, height=height)
+        self.score = 0
+        self.height = height
+        self.width = width
+        self.background_color = color.SPARTAN
 
-    def update(self, length, ):
+    def update(self):
+        pass

@@ -9,6 +9,7 @@ import pygame
 from scenes import GameOver, Intro
 import color
 import constants
+import scoreboard
 import utils
 
 
@@ -48,7 +49,11 @@ class SpartanSlither(object):
         self.lead_x_change = 10
         self.lead_y_change = 0
 
-        self.score_height = 60
+        self.score_board = scoreboard.ScoreBoard(
+            display=self.display, pygame=pygame, width=self.resolution.width,
+            height=self.resolution.height / 10
+        )
+        self._update_score = False
 
         self.sparty_size = 20
         self.sparty_head = (self.lead_x, self.lead_y)
@@ -101,6 +106,7 @@ class SpartanSlither(object):
         self.display.fill(self.background_color)
         self.draw_wolvie()
         self.draw_sparty()
+        self.update_score()
         pygame.display.update()
 
     def draw_sparty(self):
@@ -137,11 +143,16 @@ class SpartanSlither(object):
             y_max = self.resolution.height - self.wolvie_size
             self.wolvie = utils.Wolvie(
                 x=round(random.randrange(0, x_max)),
-                y=round(random.randrange(self.score_height, y_max)),
+                y=round(random.randrange(self.score_board.height, y_max)),
                 x_size=self.wolvie_size,
                 y_size=self.wolvie_size
             )
         self.display.blit(self.wolvie_image, self.wolvie.dimensions)
+
+    def update_score(self):
+        if self._update_score:
+            self.score_board.update()
+        self._update_score = False
 
     def check_location(self):
         self._check_boundary_collision()
@@ -157,7 +168,7 @@ class SpartanSlither(object):
             self.lead_x + self.sparty_size > self.resolution.width or
             self.lead_x < 0 or
             self.lead_y + self.sparty_size > self.resolution.height or
-            self.lead_y < self.score_height
+            self.lead_y < self.score_board.height
         ):
             self.game_over = True
 
@@ -181,6 +192,7 @@ class SpartanSlither(object):
                 self.wolvie.x = 0
                 self.wolvie.y = 0
                 self.sparty_length += 5
+                self._update_score = True
 
     def is_game_over(self):
         if self.game_over:
